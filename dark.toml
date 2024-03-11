@@ -48,7 +48,7 @@ alignment = "right"
   background_templates = [ "{{ if eq .Code 0 }}#323232{{ else }}#ff0000{{ end }}" ]
     [blocks.segments.properties]
     always_enabled = true
-    status_template = "{{ if eq .Code 0 }}\u2714{{ else }}\u2716{{ end }}"
+    status_template = "{{ if eq .Code 0 }}\uf49e{{ else }}\uf52f{{ end }}"
 
   [[blocks.segments]]
   type = "battery"
