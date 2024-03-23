@@ -26,7 +26,7 @@ Instructions for installation can be found [here](https://ohmyposh.dev/).
 
 Make sure to add the following line to your `~/.bashrc` file:
 ```shell
-eval "$(oh-my-posh init bash --config 'https://raw.githubusercontent.com/Lion4567714/lions_posh/master/minimal.toml')"
+eval "$(oh-my-posh init bash --config 'https://raw.githubusercontent.com/Lion4567714/lions_posh/master/themes/minimal.toml')"
 ```
 
 Replace the `minimal.toml` with any of my themes that you would like to use!
