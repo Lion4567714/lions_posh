@@ -1,0 +1,106 @@
+version = 2
+final_space = true
+
+[palette]
+  foreground =  "#ffffff"
+  background0 = "#323232"
+  background1 = "#424242"
+  error =       "#ff0000"
+
+# Line 1 Left side
+[[blocks]]
+type = "prompt"
+alignment = "left"
+
+  # [[blocks.segments]]
+  # type = "upgrade"
+  # style = "block"
+
+  [[blocks.segments]]
+  type = "text"
+  template = "\u256d"
+
+  [[blocks.segments]]
+  type = "text"
+  style = "diamond"
+  leading_diamond = "\ue0b6"
+  background = "p:background0"
+  foreground = "p:foreground"
+  # template = "\uf1d0  {{ .UserName }} "
+  template = "\ue701 {{ .UserName }} "
+
+  [[blocks.segments]]
+  type = "python"
+  style = "diamond"
+  leading_diamond = "\ue0ba"
+  background = "p:background1"
+  foreground = "p:foreground"
+  template = " \ue606 {{ .Venv }} "
+
+  [[blocks.segments]]
+  type = "path"
+  style = "diamond"
+  leading_diamond = "\ue0ba"
+  trailing_diamond = "\ue0c6"
+  background = "p:background0"
+  foreground = "p:foreground"
+    [blocks.segments.properties]
+    style = "mixed"
+    home_icon = "\ue613  ~"
+
+# Line 1 Right side
+[[blocks]]
+type = "prompt"
+alignment = "right" 
+
+  [[blocks.segments]]
+  type = "status"
+  style = "diamond"
+  leading_diamond = "\ue0c7 "
+  background = "p:background0"
+  foreground = "p:foreground"
+  background_templates = [ "{{ if eq .Code 0 }}p:background0{{ else }}p:error{{ end }}" ]
+    [blocks.segments.properties]
+    always_enabled = true
+    status_template = "{{ if eq .Code 0 }}\uf49e{{ else }}\uf52f{{ end }}"
+
+  [[blocks.segments]]
+  type = "battery"
+  style = "diamond"
+  leading_diamond = "\ue0ba"
+  trailing_diamond = "\ue0b4"
+  background = "p:background1"
+  foreground = "p:foreground"
+  # template = " {{ .Icon }}{{ .Percentage }}% "
+  template = "{{ if not .Error }}{{ .Icon }}{{ .Percentage }}%{{ end }}{{ .Error }}"
+    [blocks.segments.properties]
+    display_error = true
+    discharging_icon = "\u26a1\uf433 "
+    charging_icon = "\u26a1\uf431 "
+    charged_icon = "\u26a1 "
+
+  [[blocks.segments]]
+  type = "text"
+  foreground = "p:background0"
+  template = "\ue0b4"
+
+#  [[blocks.segments]]
+#  type = "sysinfo"
+#  style = "diamond"
+#  leading_diamond = "\ue0ba"
+#  trailing_diamond = "\ue0b4"
+#  background = "#323232"
+#  foreground = "#ffffff"
+#  template = " \ue266 {{ round .Load5 .Precision }}% \uf1c0 {{ round .PhysicalPercentUsed .Precision }}%"
+#    [blocks.segments.properties]
+#    precision = 1
+
+# Line 2 Left Side
+[[blocks]]
+type = "prompt"
+alignment = "left"
+newline = true
+
+  [[blocks.segments]]
+  type = "text"
+  template = "\u2570 >"
