@@ -80,7 +80,7 @@ alignment = "right"
   [[blocks.segments]]
   type = "upgrade"
   foreground = "#ff0000"
-  template = "[\uf019]"
+  template = "[!]"
 
 # Line 2 Left Side
 [[blocks]]
