@@ -1,0 +1,93 @@
+version = 2
+final_space = true
+
+# Line 0 Left Side
+[[blocks]]
+type = "prompt"
+alignment = "left"
+
+  [[blocks.segments]]
+  type = "text"
+  template = "\u256d"
+
+# Line 0 Right Side
+[[blocks]]
+type = "prompt"
+alignment = "right"
+filler = "\u2500"
+
+  [[blocks.segments]]
+  type = "text"
+  template = " <"
+
+# Line 1 Left Side
+[[blocks]]
+type = "prompt"
+alignment = "left"
+newline = true
+
+  [[blocks.segments]]
+  type = "text"
+  template = "\u2502"
+
+  [[blocks.segments]]
+  type = "text"
+  foreground = "#cc6ce7"
+  template = "[\ue701 {{ .UserName }}]"
+
+  [[blocks.segments]]
+  type = "git"
+  foreground = "blue"
+  template = "[{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }}]"
+
+  [[blocks.segments]]
+  type = "python"
+  foreground = "green"
+  template = "[\ue606 {{ .Venv }}]"
+
+  [[blocks.segments]]
+  type = "path"
+  foreground = "#ffde59"
+  template = "[{{ .Path }}]"
+    [blocks.segments.properties]
+    style = "mixed"
+    home_icon = "\ue613 ~"
+
+# Line 1 Right side
+[[blocks]]
+type = "prompt"
+alignment = "right" 
+
+  [[blocks.segments]]
+  type = "status"
+  foreground_templates = [ "{{ if eq .Code 0 }}green{{ else }}red{{ end }}" ]
+  template = "[{{ .String }}]"
+    [blocks.segments.properties]
+    always_enabled = true
+
+  [[blocks.segments]]
+  type = "battery"
+  foreground = "#ffa500"
+  template = "[{{ .Icon }}{{ .Percentage }}%]"
+
+  [[blocks.segments]]
+  type = "time"
+  foreground = "#00ffff"
+  template = "[{{ .CurrentDate | date .Format }}]"
+    [blocks.segments.properties]
+    time_format = "3:04PM"
+
+  [[blocks.segments]]
+  type = "upgrade"
+  foreground = "#ff0000"
+  template = "[!]"
+
+# Line 2 Left Side
+[[blocks]]
+type = "prompt"
+alignment = "left"
+newline = true
+
+  [[blocks.segments]]
+  type = "text"
+  template = "\u2570 >"

@@ -1,93 +1,139 @@
-version = 2
+version = 3
 final_space = true
 
-# Line 0 Left Side
+# First line
 [[blocks]]
-type = "prompt"
-alignment = "left"
+  type = 'prompt'
+  alignment = 'left'
 
   [[blocks.segments]]
-  type = "text"
-  template = "\u256d"
+    template = '╭'
+    type = 'text'
 
-# Line 0 Right Side
 [[blocks]]
-type = "prompt"
-alignment = "right"
-filler = "\u2500"
+  type = 'prompt'
+  alignment = 'right'
+  filler = '─'
 
   [[blocks.segments]]
-  type = "text"
-  template = " <"
+    template = ' <'
+    type = 'text'
 
-# Line 1 Left Side
+# Second line
 [[blocks]]
-type = "prompt"
-alignment = "left"
-newline = true
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
 
   [[blocks.segments]]
-  type = "text"
-  template = "\u2502"
+    type = 'text'
+    template = '│'
 
-  [[blocks.segments]]
-  type = "text"
-  foreground = "#cc6ce7"
-  template = "[\ue701 {{ .UserName }}]"
+  [[blocks.segments]] # Username
+    type = 'text'
+    template = '[ {{ .UserName }}]'
+    foreground = '#cc6ce7'
 
-  [[blocks.segments]]
-  type = "git"
-  foreground = "blue"
-  template = "[{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }}]"
+  [[blocks.segments]] # Git
+    type = 'git'
+    template = '[{{ .UpstreamIcon }}{{ .RepoName }} {{ .HEAD }} {{ .BranchStatus }}]'
+    foreground = 'blue'
 
-  [[blocks.segments]]
-  type = "python"
-  foreground = "green"
-  template = "[\ue606 {{ .Venv }}]"
-
-  [[blocks.segments]]
-  type = "path"
-  foreground = "#ffde59"
-  template = "[{{ .Path }}]"
     [blocks.segments.properties]
-    style = "mixed"
-    home_icon = "\ue613 ~"
+      fetch_status = true
+      fetch_upstream_icon = true
+      cache_duration = 'none'
 
-# Line 1 Right side
-[[blocks]]
-type = "prompt"
-alignment = "right" 
+  [[blocks.segments]] # Python
+    type = 'python'
+    template = '{{ if ne .Venv "base" }}[ {{ .Venv }}]{{ end }}'
+    foreground = 'green'
 
-  [[blocks.segments]]
-  type = "status"
-  foreground_templates = [ "{{ if eq .Code 0 }}green{{ else }}red{{ end }}" ]
-  template = "[{{ .String }}]"
     [blocks.segments.properties]
-    always_enabled = true
+      cache_duration = 'none'
 
-  [[blocks.segments]]
-  type = "battery"
-  foreground = "#ffa500"
-  template = "[{{ .Icon }}{{ .Percentage }}%]"
-
-  [[blocks.segments]]
-  type = "time"
-  foreground = "#00ffff"
-  template = "[{{ .CurrentDate | date .Format }}]"
-    [blocks.segments.properties]
-    time_format = "3:04PM"
-
-  [[blocks.segments]]
-  type = "upgrade"
-  foreground = "#ff0000"
-  template = "[!]"
-
-# Line 2 Left Side
 [[blocks]]
-type = "prompt"
-alignment = "left"
-newline = true
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]] # Battery
+    type = 'battery'
+    template = '[{{ .Icon }}{{ .Percentage }}%]'
+    foreground_templates = [
+      '{{ if lt .Percentage 20 }}#ff0000{{ end }}',
+      '{{ if lt .Percentage 40 }}#ffa000{{ end }}',
+      '{{ if lt .Percentage 60 }}#fff700{{ end }}',
+      '{{ if lt .Percentage 80 }}#c0ff00{{ end }}',
+      '{{ if lt .Percentage 100 }}#00ff00{{ end }}'
+    ]
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      discharging_icon = '󰂍 '
+      charging_icon = '󰂐 '
+      charged_icon = '󰁹 '
+
+  [[blocks.segments]] # Time
+    type = 'time'
+    template = '[ {{ .CurrentDate | date .Format }}]'
+    foreground = '#00ffff'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      time_format = '3:04'
+
+  [[blocks.segments]] # oh-my-posh update
+    type = 'upgrade'
+    template = '[!]'
+    foreground = '#ff0000'
+
+# Third line
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
 
   [[blocks.segments]]
-  type = "text"
-  template = "\u2570 >"
+    type = 'text'
+    template = '│'
+
+  [[blocks.segments]] # Path
+    type = 'path'
+    template = '[{{ .Path }}]'
+    foreground = '#ffde59'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      home_icon = ' ~'
+      style = 'mixed'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]] # Execution time
+    type = 'executiontime'
+    template = '[{{ .FormattedMs }}]'
+    foreground = '#ffffff'
+
+    [blocks.segments.properties]
+      always_enabled = true
+
+  [[blocks.segments]] # Return code
+    type = 'status'
+    template = '[{{ .String }}]'
+    foreground_templates = ['{{ if eq .Code 0 }}green{{ else }}red{{ end }}']
+
+    [blocks.segments.properties]
+      always_enabled = true
+      cache_duration = 'none'
+
+# Fourth line
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    template = '╰ >'
