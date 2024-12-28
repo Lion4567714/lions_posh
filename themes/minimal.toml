@@ -9,15 +9,17 @@ final_space = true
   [[blocks.segments]]
     template = '╭'
     type = 'text'
+    foreground = '#888888'
 
 [[blocks]]
   type = 'prompt'
   alignment = 'right'
-  filler = '─'
+  filler = '<#888888>─</>'
 
   [[blocks.segments]]
-    template = ' <'
+    template = '─'
     type = 'text'
+    foreground = '#888888'
 
 # Second line
 [[blocks]]
@@ -28,10 +30,21 @@ final_space = true
   [[blocks.segments]]
     type = 'text'
     template = '│'
+    foreground = '#aaaaaa'
+
+  [[blocks.segments]]
+    type = 'text'
+    template = '['
+    foreground = '#cc6ce7'
+
+  [[blocks.segments]] # OS
+    type = 'os'
+    template = '{{ .Icon }}'
+    foreground = '#f00ec6'
 
   [[blocks.segments]] # Username
     type = 'text'
-    template = '[ {{ .UserName }}]'
+    template = ' {{ .UserName }}]'
     foreground = '#cc6ce7'
 
   [[blocks.segments]] # Git
@@ -52,6 +65,11 @@ final_space = true
     [blocks.segments.properties]
       cache_duration = 'none'
 
+  [[blocks.segments]] # Rust
+    type = 'rust'
+    template = '[󱘗 {{ .Full }}]'
+    foreground = '#f59040'
+
 [[blocks]]
   type = 'prompt'
   alignment = 'right'
@@ -61,10 +79,10 @@ final_space = true
     template = '[{{ .Icon }}{{ .Percentage }}%]'
     foreground_templates = [
       '{{ if lt .Percentage 20 }}#ff0000{{ end }}',
-      '{{ if lt .Percentage 40 }}#ffa000{{ end }}',
-      '{{ if lt .Percentage 60 }}#fff700{{ end }}',
-      '{{ if lt .Percentage 80 }}#c0ff00{{ end }}',
-      '{{ if lt .Percentage 100 }}#00ff00{{ end }}'
+      '{{ if lt .Percentage 40 }}#ffa700{{ end }}',
+      '{{ if lt .Percentage 60 }}#fff400{{ end }}',
+      '{{ if lt .Percentage 80 }}#a3ff00{{ end }}',
+      '{{ if lt .Percentage 100 }}#2cba00{{ end }}'
     ]
 
     [blocks.segments.properties]
@@ -96,6 +114,12 @@ final_space = true
   [[blocks.segments]]
     type = 'text'
     template = '│'
+    foreground = '#cccccc'
+
+  [[blocks.segments]] # Project
+    type = 'project'
+    template = '[ {{ .Name }}]'
+    foreground = '#ff00ae'
 
   [[blocks.segments]] # Path
     type = 'path'
@@ -105,7 +129,8 @@ final_space = true
     [blocks.segments.properties]
       cache_duration = 'none'
       home_icon = ' ~'
-      style = 'mixed'
+      style = 'agnoster_short'
+      max_depth = 3
 
 [[blocks]]
   type = 'prompt'
@@ -136,4 +161,4 @@ final_space = true
 
   [[blocks.segments]]
     type = 'text'
-    template = '╰ >'
+    template = '╰─'
